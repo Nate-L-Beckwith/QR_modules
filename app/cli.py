@@ -13,7 +13,7 @@ def qr_type_selection():
     print("1: WiFi QR Code")
     print("2: URL QR Code")
     print("3: Text QR Code")
-    choice = get_user_input("Enter the number of your choice: ")
+    choice = get_user_input(":")
     return choice
 
 def gather_wifi_info():
@@ -43,7 +43,7 @@ def qr_code_generation_interface():
     save_path = get_user_input("Enter the path to save the QR code (default: ./qr_code.png): ")
     save_path = save_path if save_path else "./qr_code.png"
 
-    if choice == '1':
+    if choice == '1'  :
         ssid, password, security = gather_wifi_info()
         generate_wifi_qr_code(ssid, password, security, logo_path, save_path)
     elif choice == '2':
