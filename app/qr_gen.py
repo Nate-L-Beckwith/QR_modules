@@ -5,7 +5,7 @@ import qrcode
 from PIL import Image, ImageDraw
 import logging
 
-# Constants
+# Constants for QR Code generation
 VERSION = 1
 ERROR_CORRECTION = qrcode.constants.ERROR_CORRECT_H
 BOX_SIZE = 10
@@ -30,24 +30,20 @@ def resize_logo(logo, qr_size, logo_size_ratio=0.2):
     logo_size = int(qr_size * logo_size_ratio)
     return logo.resize((logo_size, logo_size))
 
-def generate_wifi_qr_code(ssid, password, security, logo_path=None, save_path="wifi_qr_code.png"):
+def generate_qr_code(data, logo_path=None, save_path="qr_code.png"):
     """
-    Generate a QR code to connect to a WiFi network.
-    :param ssid: SSID of the WiFi network
-    :param password: WiFi password
-    :param security: Security type (WPA, WEP, or leave empty for open networks)
+    Generate a general QR code.
+    :param data: Data to encode in the QR code (URL, text, etc.)
     :param logo_path: Optional logo image path
     :param save_path: Path to save the QR code image
     """
-    wifi_template = f"WIFI:S:{ssid};T:{security};P:{password};;"
-    
     qr = qrcode.QRCode(
         version=VERSION,
         error_correction=ERROR_CORRECTION,
         box_size=BOX_SIZE,
         border=BORDER,
     )
-    qr.add_data(wifi_template)
+    qr.add_data(data)
     qr.make(fit=True)
 
     qr_img = qr.make_image(fill_color="black", back_color="white").convert('RGBA')
@@ -60,4 +56,16 @@ def generate_wifi_qr_code(ssid, password, security, logo_path=None, save_path="w
         qr_img.paste(logo, pos, logo)
 
     qr_img.save(save_path)
-    logging.info(f"WiFi QR code saved at: {save_path}")
+    logging.info(f"QR code saved at: {save_path}")
+
+def generate_wifi_qr_code(ssid, password, security, logo_path=None, save_path="wifi_qr_code.png"):
+    """
+    Generate a QR code to connect to a WiFi network.
+    :param ssid: SSID of the WiFi network
+    :param password: WiFi password
+    :param security: Security type (WPA, WEP, or leave empty for open networks)
+    :param logo_path: Optional logo image path
+    :param save_path: Path to save the QR code image
+    """
+    wifi_template = f"WIFI:S:{ssid};T:{security};P:{password};;"
+    generate_qr_code(wifi_template, logo_path, save_path)
