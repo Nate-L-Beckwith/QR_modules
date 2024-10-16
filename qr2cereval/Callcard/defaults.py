@@ -1,0 +1,2 @@
+DEFAULT_FILL_COLOR = "black"
+DEFAULT_BACK_COLOR = "white"
