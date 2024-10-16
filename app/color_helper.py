@@ -2,8 +2,7 @@
 import logging
 from colorthief import ColorThief
 
-
-def get_dominant_and_secondary_colors(image_path):
+def getcommon_colors(image_path):
     """Get dominant and secondary colors from an image.
     :param image_path: Path to the image file
     :return: Tuple containing dominant and secondary colors

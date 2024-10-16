@@ -1,7 +1,7 @@
 # cli.py
 import logging
 from qr_gen import generate_wifi_qr_code, generate_qr_code
-from color_helper import get_dominant_and_secondary_colors
+from color_helper import getcommon_colors
 
 
 def get_user_input(prompt):
